@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 	"simple-customer-service/config"
-	"simple-customer-service/connection"
+	"simple-customer-service/db"
 	"simple-customer-service/pkg/rpc"
 )
 
@@ -17,5 +17,5 @@ func init() {
 		log.Fatal("error load env")
 	}
 
-	connection.OpenDatabase()
+	db.OpenDatabase()
 }

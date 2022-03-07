@@ -11,6 +11,10 @@ type Customer struct {
 	Balance float64 `json:"balance"`
 }
 
+type CustomerGetReq struct {
+	CustID int64 `json:"cust_id" uri:"id" binding:"required,min=1"`
+}
+
 type CustomerCUReq struct {
 	Customer
 }
