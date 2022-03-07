@@ -24,6 +24,18 @@ func Query(ctx context.Context, dbtx DBTX, query string, args []interface{}) (da
 	return data, nil
 }
 
+func QueryRow(ctx context.Context, dbtx DBTX, query string, args []interface{}) (row *sql.Row, err error) {
+	stmt, err := dbtx.PrepareContext(ctx, query)
+	if err != nil {
+		return nil, err
+	}
+	defer stmt.Close()
+
+	row = stmt.QueryRowContext(ctx, args...)
+
+	return row, nil
+}
+
 func Exec(ctx context.Context, dbtx DBTX, query string, args []interface{}) (insertID, rowsAffected int64, err error) {
 	stmt, err := dbtx.PrepareContext(ctx, query)
 	if err != nil {

@@ -26,6 +26,26 @@ func (r *RpcServer) List(ctx context.Context, empty *Empty) (*Response, error) {
 	return &response, nil
 }
 
+func (r *RpcServer) Get(ctx context.Context, request *Request) (*Response, error) {
+	var req model.CustomerGetReq
+	if err := json.Unmarshal(request.Body, &req); err != nil {
+		return nil, err
+	}
+
+	customer, err := r.svc.Get(ctx, &req)
+	if err != nil {
+		return nil, err
+	}
+
+	var response Response
+	response.Body, err = json.Marshal(customer)
+	if err != nil {
+		return nil, err
+	}
+
+	return &response, nil
+}
+
 func (r *RpcServer) Create(ctx context.Context, request *Request) (*Response, error) {
 	var req model.CustomerCUReq
 	if err := json.Unmarshal(request.Body, &req); err != nil {
