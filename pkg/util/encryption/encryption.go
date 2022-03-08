@@ -6,7 +6,6 @@ import (
 	"crypto/rand"
 	"encoding/hex"
 	"io"
-	"log"
 )
 
 const (
@@ -31,7 +30,6 @@ func Encrypt(plainText []byte) (string, error) {
 	}
 
 	cipherText := gcm.Seal(nonce, nonce, plainText, nil)
-	log.Println("cipherText", cipherText)
 
 	encodedText := hex.EncodeToString(cipherText)
 
@@ -60,8 +58,6 @@ func Decrypt(encodedText string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	log.Println("plainText", plainText)
 
 	return plainText, nil
 }
